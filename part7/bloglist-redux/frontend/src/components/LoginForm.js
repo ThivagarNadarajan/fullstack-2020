@@ -5,6 +5,17 @@ import { connect } from 'react-redux'
 import { login, setUser, clearUser } from '../reducers/loginReducer'
 import { setNotif } from '../reducers/notificationReducer'
 import { Title, Button } from '../styles/styles'
+import styled from 'styled-components'
+
+const StyledForm = styled.form`
+	background: #f0f0f0;
+	text-align: center;
+	border: 3px solid black;
+	padding: 2em;
+	padding-top: 0;
+	width: fit-content;
+	margin: auto;
+`
 
 const LoginForm = (props) => {
 	const [username, setUsername] = useState('')
@@ -35,20 +46,20 @@ const LoginForm = (props) => {
 	}
 
 	return (
-		<form onSubmit={handleLogin}>
+		<StyledForm onSubmit={handleLogin}>
 			<Title>Please Login</Title>
 			<div>
-				<input id="user" type="text" name="Username" 
-					placeholder="Username" value={username} 
+				<input id="user" type="text" name="Username"
+					placeholder="Username" value={username}
 					onChange={textChange}></input>
 			</div>
 			<div>
-			<input id="user" type="text" name="Password" 
-					placeholder="Password" value={password} 
+				<input id="user" type="text" name="Password"
+					placeholder="Password" value={password}
 					onChange={textChange}></input>
 			</div>
 			<Button type="submit">Login</Button>
-		</form>
+		</StyledForm>
 	)
 
 }
