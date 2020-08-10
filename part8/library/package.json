@@ -1,0 +1,16 @@
+{
+	"name": "library",
+	"version": "1.0.0",
+	"description": "Library app",
+	"main": "backend.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "node backend.js"
+	},
+	"author": "Thivagar Nadarajan",
+	"license": "ISC",
+	"dependencies": {
+		"apollo-server": "^2.16.1",
+		"graphql": "^15.3.0"
+	}
+}
