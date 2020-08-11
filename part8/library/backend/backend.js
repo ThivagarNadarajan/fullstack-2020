@@ -1,5 +1,5 @@
 const { ApolloServer, gql } = require('apollo-server')
-const { v1: uuid } = require('uuid')
+const { v1: uuid } = require('uuid') // Generate unique ids
 
 let authors = [
 	{
