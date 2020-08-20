@@ -21,6 +21,7 @@ const Authors = (props) => {
 	const handleSubmit = (event) => {
 		event.preventDefault()
 		editAuthor({ variables: { name: author, setBornTo: parseInt(year) } })
+			.catch(error => console.log(error))
 		setYear('')
 	}
 
@@ -36,7 +37,7 @@ const Authors = (props) => {
 
 	return (
 		<div>
-			<h2>authors</h2>
+			<h2>Authors</h2>
 			<table>
 				<tbody>
 					<tr>

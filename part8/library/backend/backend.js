@@ -1,4 +1,4 @@
-const { ApolloServer, UserInputError, gql } = require('apollo-server')
+const { ApolloServer, UserInputError, gql, AuthenticationError } = require('apollo-server')
 const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
 
@@ -103,7 +103,10 @@ const resolvers = {
 		}
 	},
 	Mutation: {
-		addBook: async (root, args) => {
+		addBook: async (root, args, context) => {
+			const currentUser = context.currentUser
+			if (!currentUser) throw new AuthenticationError("Not authenticated")
+
 			const author = await Author.findOne({ name: args.author })
 			if (author) {
 				const book = new Book({ ...args, author: author._id })
@@ -139,14 +142,20 @@ const resolvers = {
 				return bookResult
 			}
 		},
-		editAuthor: async (root, args) => {
+		editAuthor: async (root, args, context) => {
+			const currentUser = context.currentUser
+			if (!currentUser) throw new AuthenticationError("Not authenticated")
+
 			await Author.findOneAndUpdate(
 				{ name: args.name }, { born: args.setBornTo }
 			)
 			const result = await Author.findOne({ name: args.name })
 			return result
 		},
-		createUser: (root, args) => {
+		createUser: (root, args, context) => {
+			const currentUser = context.currentUser
+			if (!currentUser) throw new AuthenticationError("Not authenticated")
+
 			const user = new User({ ...args })
 			return user.save()
 				.catch(error => {
@@ -163,7 +172,6 @@ const resolvers = {
 			}
 
 			const correctUser = { username: user.username, id: user._id }
-			console.log("CORRECT USER:", correctUser)
 			return { value: jwt.sign(correctUser, JWT_SECRET) }
 		}
 	}
