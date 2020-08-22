@@ -6,7 +6,8 @@ import Books from './components/Books'
 import NewBook from './components/NewBook'
 import Recommendations from './components/Recommendations'
 
-import { useApolloClient } from '@apollo/client'
+import { useApolloClient, useSubscription } from '@apollo/client'
+import { BOOK_ADDED } from './graphql/subscriptions'
 
 const App = () => {
 	const [page, setPage] = useState('authors')
@@ -19,14 +20,20 @@ const App = () => {
 		client.resetStore()
 	}
 
-	// if (!token) {
-	// 	return (
-	// 		<div>
-	// 			<h2>Login</h2>
-	// 			<LoginForm setToken={setToken} />
-	// 		</div>
-	// 	)
-	// }
+	useSubscription(BOOK_ADDED, {
+		onSubscriptionData: ({ subscriptionData }) => {
+			alert("New book added: " + subscriptionData.data.bookAdded.title)
+		}
+	})
+
+	if (!token) {
+		return (
+			<div>
+				<h2>Login</h2>
+				<LoginForm setToken={setToken} />
+			</div>
+		)
+	}
 
 	return (
 		<div>

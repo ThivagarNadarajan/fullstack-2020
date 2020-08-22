@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
-import { useQuery, useLazyQuery } from '@apollo/client'
-import { ME, BOOKS_BY_GENRE } from '../queries'
+import React from 'react'
+import { useQuery } from '@apollo/client'
+import { ME, BOOKS_BY_GENRE } from '../graphql/queries'
 
 const Recommendations = (props) => {
 	const { data: userData, loading: userLoading } = useQuery(ME)
 	const genre = userData?.me?.favouriteGenre
-	const { data: bookData, bookLoading: bookLoading } = useQuery(BOOKS_BY_GENRE,
+	const { data: bookData, bookLoading } = useQuery(BOOKS_BY_GENRE,
 		{ variables: { genre }, pollInterval: 2000 }
 	)
 
