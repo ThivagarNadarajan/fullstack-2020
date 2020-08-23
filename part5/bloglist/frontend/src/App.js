@@ -140,7 +140,6 @@ const App = () => {
 				</Togglable>
 				<br />
 				{blogs.map(blog => {
-					// console.log(blog)
 					return (
 						<Togglable key={blog.id} showLabel="Show" hideLabel="Hide"
 							textLabel={`${blog.title} ${blog.author}`}

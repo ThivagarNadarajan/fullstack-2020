@@ -62,15 +62,9 @@ const Footer = () => (
 )
 
 const CreateNew = (props) => {
-	var { clear, ...content } = useField('content')
-	const contentClear = clear
-
-	var { clear, ...author } = useField('author')
-	const authorClear = clear
-
-	var { clear, ...info } = useField('info')
-	const infoClear = clear
-
+	var [content, contentClear] = useField('content')
+	var [author, authorClear] = useField('author')
+	var [info, infoClear] = useField('info')
 
 	const handleSubmit = (e) => {
 		e.preventDefault()

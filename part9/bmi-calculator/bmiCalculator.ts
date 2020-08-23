@@ -1,4 +1,3 @@
-
 const calculateBmi = (height: number, weight: number): String => {
 	const metreHeight = height / 100;
 	const bmi = weight / (metreHeight * metreHeight);
