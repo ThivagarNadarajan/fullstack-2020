@@ -8,7 +8,7 @@ interface Result {
 	trainingDays: number,
 	success: boolean,
 	rating: number,
-	description: String,
+	description: string,
 	target: number,
 	average: number
 }
@@ -47,7 +47,7 @@ const calculateExercise = (dailyHours: Array<number>, targetHours: number): Resu
 		target: targetHours,
 		average
 	};
-}
+};
 
 const parseExerciseArgs = (args: Array<string>): ExerciseValues => {
 	if (args.length < 2) {
@@ -55,7 +55,7 @@ const parseExerciseArgs = (args: Array<string>): ExerciseValues => {
 	}
 
 	let dailyHours: Array<number> = [];
-	let targetHours: number = Number(args[2]);
+	const targetHours = Number(args[2]);
 	for (let i = 2; i < args.length; i++) {
 		if (!isNaN(Number(args[i]))) {
 			if (i === 2) continue;
@@ -68,16 +68,17 @@ const parseExerciseArgs = (args: Array<string>): ExerciseValues => {
 	return {
 		dailyHours,
 		targetHours
-	}
-}
+	};
+};
 
-const runExerciseCalculator = () => {
+const runExerciseCalculator = (): void => {
 	try {
 		const { dailyHours, targetHours } = parseExerciseArgs(process.argv);
 		console.log(calculateExercise(dailyHours, targetHours));
 	} catch (e) {
+		// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
 		console.log("Error:", e.message);
 	}
-}
+};
 
 export default runExerciseCalculator;
