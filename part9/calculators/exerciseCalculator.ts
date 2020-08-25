@@ -1,4 +1,4 @@
-interface ExerciseValues {
+export interface ExerciseValues {
 	dailyHours: Array<number>,
 	targetHours: number
 }
@@ -13,7 +13,7 @@ interface Result {
 	average: number
 }
 
-const calculateExercise = (dailyHours: Array<number>, targetHours: number): Result => {
+export const calculateExercise = (dailyHours: Array<number>, targetHours: number): Result => {
 	const periodLength = dailyHours.length;
 	let trainingDays = 0;
 	let totalHours = 0;
