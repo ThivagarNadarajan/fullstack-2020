@@ -1,11 +1,17 @@
 import express from 'express';
-import { getSecurePatients, addPatient } from '../services/patientService';
+import { getPatients, getPublicPatients, addPatient } from '../services/patientService';
 import validateNewPatient from '../utils';
 
 const router = express.Router();
 
 router.get('/', (_req, res) => {
-	res.send(getSecurePatients());
+	res.send(getPublicPatients());
+});
+
+router.get('/:id', (req, res) => {
+	const patients = getPatients();
+	const patient = patients.find(p => p.id === req.params.id);
+	res.json(patient);
 });
 
 router.post('/', (req, res) => {

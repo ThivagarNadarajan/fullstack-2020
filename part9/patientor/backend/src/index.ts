@@ -11,7 +11,7 @@ app.use(express.json());
 app.use('/api/diagnoses', diagnosesRouter);
 app.use('/api/patients', patientsRouter);
 
-
+/* Test endpoint */
 app.get('/api/ping', (_req, res) => {
 	res.send('pong');
 });

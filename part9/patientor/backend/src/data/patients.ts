@@ -1,6 +1,7 @@
 import { Patient } from '../types';
+import validateNewPatient from '../utils';
 
-const patients: Array<Patient> = [{
+const data = [{
 	"id": "d2773336-f723-11e9-8f0b-362b9e155667",
 	"name": "John McClane",
 	"dateOfBirth": "1986-07-09",
@@ -41,5 +42,11 @@ const patients: Array<Patient> = [{
 	"occupation": "Digital evangelist"
 }
 ];
+
+const patients: Patient[] = data.map(obj => {
+	const patientObj = validateNewPatient(obj) as Patient;
+	patientObj.id = obj.id;
+	return patientObj;
+});
 
 export default patients;

@@ -7,7 +7,8 @@ const validateNewPatient = (object: any): NewPatient => {
 		dateOfBirth: parseDateOfBirth(object.dateOfBirth),
 		ssn: parseSSN(object.ssn),
 		gender: parseGender(object.gender),
-		occupation: parseOccupation(object.occupation)
+		occupation: parseOccupation(object.occupation),
+		entries: []
 	};
 	return newPatient;
 };
@@ -40,7 +41,7 @@ const parseOccupation = (occupation: any): string => {
 	return occupation;
 };
 
-const parseGender = (gender: any): string => {
+const parseGender = (gender: any): Gender => {
 	if (!gender || !isString(gender) || !isGender(gender)) {
 		throw new Error("Invalid/missing gender field");
 	}
