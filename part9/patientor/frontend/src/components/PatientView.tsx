@@ -10,7 +10,7 @@ import { Entry } from '../types';
 import { updatePatient } from '../state/reducer';
 
 const PatientView: React.FC = () => {
-	const [{ patients }, dispatch] = useStateValue();
+	const [{ patients, diagnoses }, dispatch] = useStateValue();
 	const { patientId } = useParams<{ patientId: string }>();
 
 	const findPatient = async () => {
@@ -27,10 +27,16 @@ const PatientView: React.FC = () => {
 	const handleEntry = (entry: Entry) => {
 		return (
 			<div key={entry.id}>
-				{entry.date} {entry.description}
+				{entry.date} <i>{entry.description}</i>
 				<ul>
-					{entry.diagnosisCodes?.map(code =>
-						<li key={code}>{code}</li>)}
+					{entry.diagnosisCodes?.map(code => {
+						const diagnosis = diagnoses[code];
+						if (diagnosis) {
+							return (<li key={code}>
+								{diagnosis.code}: {diagnosis.name}
+							</li>);
+						}
+					})}
 				</ul>
 			</div>
 		);
