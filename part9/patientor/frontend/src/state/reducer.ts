@@ -29,13 +29,6 @@ export const reducer = (state: State, action: Action): State => {
 				}
 			};
 		case "ADD_PATIENT":
-			return {
-				...state,
-				patients: {
-					...state.patients,
-					[action.payload.id]: action.payload
-				}
-			};
 		case "UPDATE_PATIENT":
 			return {
 				...state,
@@ -43,7 +36,7 @@ export const reducer = (state: State, action: Action): State => {
 					...state.patients,
 					[action.payload.id]: action.payload
 				}
-			}
+			};
 		default:
 			return state;
 	}
