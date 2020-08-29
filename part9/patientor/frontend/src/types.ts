@@ -42,7 +42,6 @@ interface HealthCheckEntry extends BaseEntry {
 
 interface HospitalEntry extends BaseEntry {
 	type: "Hospital";
-	description: string;
 	discharge: Discharge;
 }
 

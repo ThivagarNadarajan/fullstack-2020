@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import { useParams } from 'react-router-dom';
 
+import EntryView from '../Entry/EntryView';
 import { apiBaseUrl } from "../constants";
 import { useStateValue } from "../state";
 import { Icon, Header } from "semantic-ui-react";
@@ -10,7 +11,7 @@ import { Entry } from '../types';
 import { updatePatient } from '../state/reducer';
 
 const PatientView: React.FC = () => {
-	const [{ patients, diagnoses }, dispatch] = useStateValue();
+	const [{ patients, }, dispatch] = useStateValue();
 	const { patientId } = useParams<{ patientId: string }>();
 
 	const findPatient = async () => {
@@ -25,19 +26,13 @@ const PatientView: React.FC = () => {
 	};
 
 	const handleEntry = (entry: Entry) => {
+		const style = {
+			border: "1px solid",
+			padding: "1rem"
+		}
 		return (
-			<div key={entry.id}>
-				{entry.date} <i>{entry.description}</i>
-				<ul>
-					{entry.diagnosisCodes?.map(code => {
-						const diagnosis = diagnoses[code];
-						if (diagnosis) {
-							return (<li key={code}>
-								{diagnosis.code}: {diagnosis.name}
-							</li>);
-						}
-					})}
-				</ul>
+			<div key={entry.id} style={style}>
+				<EntryView entry={entry} />
 			</div>
 		);
 	}
