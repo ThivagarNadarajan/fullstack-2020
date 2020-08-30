@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-import { NewPatient, Gender } from './types';
+import { NewPatient, Gender } from '../types';
 
 const validateNewPatient = (object: any): NewPatient => {
 	const newPatient = {
@@ -53,8 +53,8 @@ const isString = (str: any): str is string => {
 	return typeof str === 'string' || str instanceof String;
 };
 
-const isGender = (param: any): param is Gender => {
-	return Object.values(Gender).includes(param);
+const isGender = (gender: any): gender is Gender => {
+	return Object.values(Gender).includes(gender);
 };
 
 export default validateNewPatient;

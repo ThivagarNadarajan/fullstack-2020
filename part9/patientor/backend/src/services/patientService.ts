@@ -1,6 +1,5 @@
 import patients from '../data/patients';
-import { Patient, PublicPatient, NewPatient } from '../types';
-
+import { Patient, PublicPatient, NewPatient, Entry, NewEntry } from '../types';
 
 export const getPatients = (): Array<Patient> => {
 	return patients;
@@ -25,3 +24,13 @@ export const addPatient = (newPatient: NewPatient): Patient => {
 	patients.push(patient);
 	return patient;
 };
+
+export const addEntry = (id: string, newEntry: NewEntry): Entry => {
+	// Hardcoded ID, not randomly generated
+	const entry = { id: "999", ...newEntry };
+
+	const patient = patients.find(patient => patient.id === id);
+	patient?.entries.push(entry);
+	return entry;
+};
+
