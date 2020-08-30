@@ -7,7 +7,6 @@ import {
 
 
 const validateNewEntry = (object: any): NewEntry => {
-	console.log(object);
 	const baseEntry = {
 		description: parse(object.description),
 		date: parse(object.date),
@@ -15,7 +14,9 @@ const validateNewEntry = (object: any): NewEntry => {
 		diagnosisCodes: parseCodes(object.diagnosisCodes),
 	};
 
+
 	const entryType = parseEntryType(object.type);
+
 
 	switch (entryType) {
 		case EntryType.Health:
@@ -57,7 +58,7 @@ const parseHealthCheckEntry = (baseEntry: NewBaseEntry, object: any): NewEntry =
 	return {
 		type: "HealthCheck",
 		...baseEntry,
-		healthCheckRating: parseHealthCheckRating(object.rating)
+		healthCheckRating: parseHealthCheckRating(object.healthCheckRating)
 	};
 };
 
