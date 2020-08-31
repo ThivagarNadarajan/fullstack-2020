@@ -16,6 +16,7 @@ export enum HealthCheckRating {
 	"HighRisk" = 2,
 	"CriticalRisk" = 3
 }
+type NewHealthCheckEntry = Omit<HealthCheckEntry, 'id'>;
 
 interface Discharge {
 	date: string;
@@ -52,6 +53,7 @@ interface OccupationalEntry extends BaseEntry {
 }
 
 export type Entry = HealthCheckEntry | HospitalEntry | OccupationalEntry;
+export type NewEntry = NewHealthCheckEntry;
 
 export interface Patient {
 	id: string;

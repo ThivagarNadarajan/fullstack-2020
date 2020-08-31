@@ -9,7 +9,7 @@ import { Patient, Diagnosis } from "./types";
 
 import { setPatientList, setDiagnosisList } from './state/reducer';
 
-import PatientListPage from "./PatientListPage";
+import PatientList from "./PatientListPage";
 
 
 const App: React.FC = () => {
@@ -54,7 +54,7 @@ const App: React.FC = () => {
           </Button>
 					<Divider hidden />
 					<Switch>
-						<Route path="/" render={() => <PatientListPage />} />
+						<Route path="/" render={() => <PatientList />} />
 					</Switch>
 				</Container>
 			</Router>

@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import { useParams } from 'react-router-dom';
 
-import EntryView from '../Entry/EntryView';
+import EntryView from './Entry';
 import { apiBaseUrl } from "../constants";
 import { useStateValue } from "../state";
 import { Icon, Header } from "semantic-ui-react";

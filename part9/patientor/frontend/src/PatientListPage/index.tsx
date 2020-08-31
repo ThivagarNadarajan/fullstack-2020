@@ -3,17 +3,17 @@ import axios from "axios";
 import { Switch, Route, Link } from "react-router-dom";
 import { Container, Table, Button } from "semantic-ui-react";
 
-import PatientView from '../components/PatientView';
+import PatientView from '../PatientViewPage';
 import { PatientFormValues } from "../AddPatientModal/AddPatientForm";
 import AddPatientModal from "../AddPatientModal";
 import { Patient } from "../types";
 import { apiBaseUrl } from "../constants";
-import HealthRatingBar from "../components/HealthRatingBar";
+import HealthRatingBar from "./HealthRatingBar";
 import { useStateValue } from "../state";
 
 import { addPatient } from '../state/reducer';
 
-const PatientListPage: React.FC = () => {
+const PatientList: React.FC = () => {
 	const [{ patients }, dispatch] = useStateValue();
 
 	const [modalOpen, setModalOpen] = React.useState<boolean>(false);
@@ -88,4 +88,4 @@ const PatientListPage: React.FC = () => {
 	);
 };
 
-export default PatientListPage;
+export default PatientList;
