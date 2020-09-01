@@ -76,7 +76,7 @@ const isHealthCheckRating = (rating: any): rating is HealthCheckRating => {
 /* All OccupationalEntry parsing */
 const parseOccupationalEntry = (baseEntry: NewBaseEntry, object: any): NewEntry => {
 	let sickLeave;
-	if (object.sickLeave) {
+	if (object.sickLeave && (object.sickLeave.startDate) && (object.sickLeave.endDate)) {
 		sickLeave = parseSickLeave(object.sickLeave);
 	}
 

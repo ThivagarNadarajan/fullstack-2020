@@ -11,19 +11,37 @@ import { Entry } from '../types';
 
 import { updatePatient, addEntry } from '../state/reducer';
 
-import AddEntryModal from "../AddEntryModal";
-import { EntryFormValues } from "../AddEntryModal/AddEntryForm";
+import EntryModal from "../AddEntryModal";
+import { EntryFormValues } from "../types";
+
+const HealthCheckEntryModal = EntryModal.HealthCheckEntryModal;
+const OccupationalEntryModal = EntryModal.OccupationalEntryModal;
+const HospitalEntryModal = EntryModal.HospitalEntryModal;
 
 const PatientView: React.FC = () => {
 	const [{ patients, }, dispatch] = useStateValue();
 	const { patientId } = useParams<{ patientId: string }>();
 
-	const [modalOpen, setModalOpen] = React.useState<boolean>(false);
+	const [healthCheckModalOpen, setHealthCheckModalOpen] = React.useState<boolean>(false);
+	const [occupationalModalOpen, setOccupationalModalOpen] = React.useState<boolean>(false);
+	const [hospitalModalOpen, setHospitalModalOpen] = React.useState<boolean>(false);
 	const [error, setError] = React.useState<string | undefined>();
 
-	const openModal = (): void => setModalOpen(true);
-	const closeModal = (): void => {
-		setModalOpen(false);
+	const openHealthCheckModal = (): void => setHealthCheckModalOpen(true);
+	const closeHealthCheckModal = (): void => {
+		setHealthCheckModalOpen(false);
+		setError(undefined);
+	};
+
+	const openOccupationalModal = (): void => setOccupationalModalOpen(true);
+	const closeOccupationalModal = (): void => {
+		setOccupationalModalOpen(false);
+		setError(undefined);
+	};
+
+	const openHospitalModal = (): void => setHospitalModalOpen(true);
+	const closeHospitalModal = (): void => {
+		setHospitalModalOpen(false);
 		setError(undefined);
 	};
 
@@ -46,7 +64,9 @@ const PatientView: React.FC = () => {
 				values
 			);
 			dispatch(addEntry({ id: patientId, entry: newEntry }));
-			closeModal();
+			closeHealthCheckModal();
+			closeOccupationalModal();
+			closeHospitalModal();
 		} catch (e) {
 			console.error(e.response.data);
 			setError(e.response.data.error);
@@ -91,13 +111,27 @@ const PatientView: React.FC = () => {
 				{`Occupation: ${patient.occupation}`}
 				<br />
 				<Header as="h2">Entries</Header>
-				<Button onClick={() => openModal()}>Add New Entry</Button>
+				<Button onClick={() => openHealthCheckModal()}>Add Health Check Entry</Button>
+				<Button onClick={() => openOccupationalModal()}>Add Occupational Entry</Button>
+				<Button onClick={() => openHospitalModal()}>Add Hospital Entry</Button>
 				<Divider hidden />
-				<AddEntryModal
-					modalOpen={modalOpen}
+				<HealthCheckEntryModal
+					modalOpen={healthCheckModalOpen}
 					onSubmit={submitNewEntry}
 					error={error}
-					onClose={closeModal}
+					onClose={closeHealthCheckModal}
+				/>
+				<OccupationalEntryModal
+					modalOpen={occupationalModalOpen}
+					onSubmit={submitNewEntry}
+					error={error}
+					onClose={closeOccupationalModal}
+				/>
+				<HospitalEntryModal
+					modalOpen={hospitalModalOpen}
+					onSubmit={submitNewEntry}
+					error={error}
+					onClose={closeHospitalModal}
 				/>
 				{entries.map(entry => handleEntry(entry))}
 			</div>

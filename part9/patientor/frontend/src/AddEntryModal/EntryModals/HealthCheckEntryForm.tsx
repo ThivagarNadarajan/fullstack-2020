@@ -2,28 +2,16 @@ import React from "react";
 import { Grid, Button } from "semantic-ui-react";
 import { Field, Formik, Form } from "formik";
 
-import { useStateValue } from "../state";
-import {
-	TextField, NumberField, SelectField, HealthCheckOptions, DiagnosisSelection
-}
-	from "./FormField";
-import { HealthCheckRating, NewEntry } from "../types";
-
-export type EntryFormValues = NewEntry;
+import { useStateValue } from "../../state";
+import { TextField, NumberField, DiagnosisSelection } from "../FormField";
+import { NewHealthCheckEntry } from "../../types";
 
 interface Props {
-	onSubmit: (values: EntryFormValues) => void;
+	onSubmit: (values: NewHealthCheckEntry) => void;
 	onCancel: () => void;
 }
 
-const healthCheckOptions: HealthCheckOptions[] = [
-	{ value: HealthCheckRating.Healthy, label: "Healthy" },
-	{ value: HealthCheckRating.LowRisk, label: "Low Risk" },
-	{ value: HealthCheckRating.HighRisk, label: "High Risk" },
-	{ value: HealthCheckRating.CriticalRisk, label: "Critical Risk" }
-];
-
-export const AddEntryForm: React.FC<Props> = ({ onSubmit, onCancel }) => {
+export const HealthCheckEntryForm: React.FC<Props> = ({ onSubmit, onCancel }) => {
 	const [{ diagnoses, }] = useStateValue();
 
 	return (
@@ -33,7 +21,6 @@ export const AddEntryForm: React.FC<Props> = ({ onSubmit, onCancel }) => {
 				specialist: "",
 				date: "",
 				description: "",
-				diagnosisCodes: [],
 				healthCheckRating: 0
 			}}
 			onSubmit={onSubmit}
@@ -108,4 +95,4 @@ export const AddEntryForm: React.FC<Props> = ({ onSubmit, onCancel }) => {
 	);
 };
 
-export default AddEntryForm;
+export default HealthCheckEntryForm;
