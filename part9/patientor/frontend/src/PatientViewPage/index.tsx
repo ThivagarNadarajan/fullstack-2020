@@ -2,17 +2,30 @@ import React from "react";
 import axios from "axios";
 import { useParams } from 'react-router-dom';
 
+import { Button, Divider } from "semantic-ui-react";
 import EntryView from './Entry';
 import { apiBaseUrl } from "../constants";
 import { useStateValue } from "../state";
 import { Icon, Header } from "semantic-ui-react";
 import { Entry } from '../types';
 
-import { updatePatient } from '../state/reducer';
+import { updatePatient, addEntry } from '../state/reducer';
+
+import AddEntryModal from "../AddEntryModal";
+import { EntryFormValues } from "../AddEntryModal/AddEntryForm";
 
 const PatientView: React.FC = () => {
 	const [{ patients, }, dispatch] = useStateValue();
 	const { patientId } = useParams<{ patientId: string }>();
+
+	const [modalOpen, setModalOpen] = React.useState<boolean>(false);
+	const [error, setError] = React.useState<string | undefined>();
+
+	const openModal = (): void => setModalOpen(true);
+	const closeModal = (): void => {
+		setModalOpen(false);
+		setError(undefined);
+	};
 
 	const findPatient = async () => {
 		try {
@@ -22,6 +35,20 @@ const PatientView: React.FC = () => {
 			dispatch(updatePatient(patient));
 		} catch (e) {
 			console.error(e.response.data);
+		}
+	};
+
+	const submitNewEntry = async (values: EntryFormValues) => {
+		try {
+			const { data: newEntry } = await axios.post<Entry>(
+				`${apiBaseUrl}/patients/${patientId}/entries`,
+				values
+			);
+			dispatch(addEntry({ id: patientId, entry: newEntry }));
+			closeModal();
+		} catch (e) {
+			console.error(e.response.data);
+			setError(e.response.data.error);
 		}
 	};
 
@@ -62,7 +89,15 @@ const PatientView: React.FC = () => {
 				<br />
 				{`Occupation: ${patient.occupation}`}
 				<br />
-				<Header as="h3">Entries</Header>
+				<Header as="h2">Entries</Header>
+				<Button onClick={() => openModal()}>Add New Entry</Button>
+				<Divider hidden />
+				<AddEntryModal
+					modalOpen={modalOpen}
+					onSubmit={submitNewEntry}
+					error={error}
+					onClose={closeModal}
+				/>
 				{entries.map(entry => handleEntry(entry))}
 			</div>
 		);

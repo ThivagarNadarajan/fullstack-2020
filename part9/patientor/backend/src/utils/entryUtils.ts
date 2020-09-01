@@ -63,7 +63,7 @@ const parseHealthCheckEntry = (baseEntry: NewBaseEntry, object: any): NewEntry =
 };
 
 const parseHealthCheckRating = (rating: any): HealthCheckRating => {
-	if (!rating || !isHealthCheckRating(rating) || isNaN(rating)) {
+	if (!isHealthCheckRating(rating) || isNaN(rating)) {
 		throw new Error("Invalid/missing rating");
 	}
 	return rating;

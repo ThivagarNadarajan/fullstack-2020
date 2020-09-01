@@ -2,8 +2,12 @@ import React from "react";
 import { Grid, Button } from "semantic-ui-react";
 import { Field, Formik, Form } from "formik";
 
-import { TextField, SelectField, HealthCheckOptions } from "./FormField";
-import { HealthCheckRating, Entry, NewEntry } from "../types";
+import { useStateValue } from "../state";
+import {
+	TextField, NumberField, SelectField, HealthCheckOptions, DiagnosisSelection
+}
+	from "./FormField";
+import { HealthCheckRating, NewEntry } from "../types";
 
 export type EntryFormValues = NewEntry;
 
@@ -20,6 +24,8 @@ const healthCheckOptions: HealthCheckOptions[] = [
 ];
 
 export const AddEntryForm: React.FC<Props> = ({ onSubmit, onCancel }) => {
+	const [{ diagnoses, }] = useStateValue();
+
 	return (
 		<Formik
 			initialValues={{
@@ -27,7 +33,8 @@ export const AddEntryForm: React.FC<Props> = ({ onSubmit, onCancel }) => {
 				specialist: "",
 				date: "",
 				description: "",
-				healthCheckRating: HealthCheckRating.Healthy
+				diagnosisCodes: [],
+				healthCheckRating: 0
 			}}
 			onSubmit={onSubmit}
 			validate={values => {
@@ -45,7 +52,7 @@ export const AddEntryForm: React.FC<Props> = ({ onSubmit, onCancel }) => {
 				return errors;
 			}}
 		>
-			{({ isValid, dirty }) => {
+			{({ isValid, dirty, setFieldValue, setFieldTouched }) => {
 				return (
 					<Form className="form ui">
 						<Field
@@ -66,10 +73,17 @@ export const AddEntryForm: React.FC<Props> = ({ onSubmit, onCancel }) => {
 							name="description"
 							component={TextField}
 						/>
-						<SelectField
+						<DiagnosisSelection
+							setFieldValue={setFieldValue}
+							setFieldTouched={setFieldTouched}
+							diagnoses={Object.values(diagnoses)}
+						/>
+						<Field
 							label="Health Check Rating"
 							name="healthCheckRating"
-							options={healthCheckOptions}
+							component={NumberField}
+							min={0}
+							max={3}
 						/>
 						<Grid>
 							<Grid.Column floated="left" width={5}>

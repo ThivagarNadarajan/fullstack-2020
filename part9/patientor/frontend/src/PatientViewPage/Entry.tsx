@@ -4,7 +4,7 @@ import { useStateValue } from "../state";
 import { Icon, Header } from "semantic-ui-react";
 import { Entry } from '../types';
 
-const EntryView: React.FC<{ entry: Entry }> = ({ entry }) => {
+const EntryView: React.FC<{ entry: Entry, }> = ({ entry }) => {
 	const [{ diagnoses },] = useStateValue();
 	let icon: "user" | "doctor" | "hospital" | "user times" = "user times";
 	switch (entry.type) {

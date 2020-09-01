@@ -3,13 +3,11 @@ import { ErrorMessage, Field, FieldProps, FormikProps } from "formik";
 import { Dropdown, DropdownProps, Form } from "semantic-ui-react";
 import { Diagnosis, HealthCheckRating } from "../types";
 
-// structure of a single option
 export type HealthCheckOptions = {
 	value: HealthCheckRating;
 	label: string;
 };
 
-// props for select field component
 type SelectFieldProps = {
 	name: string;
 	label: string;
@@ -52,9 +50,6 @@ export const TextField: React.FC<TextProps> = ({
 		</Form.Field>
 	);
 
-/*
-  for exercises 9.24.-
-*/
 interface NumberProps extends FieldProps {
 	label: string;
 	errorMessage?: string;

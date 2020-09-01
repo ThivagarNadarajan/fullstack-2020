@@ -20,7 +20,6 @@ const PatientList: React.FC = () => {
 	const [error, setError] = React.useState<string | undefined>();
 
 	const openModal = (): void => setModalOpen(true);
-
 	const closeModal = (): void => {
 		setModalOpen(false);
 		setError(undefined);
