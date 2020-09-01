@@ -41,13 +41,13 @@ export const AddEntryForm: React.FC<Props> = ({ onSubmit, onCancel }) => {
 				const requiredError = "Field is required";
 				const errors: { [field: string]: string } = {};
 				if (!values.specialist) {
-					errors.name = requiredError;
+					errors.specialist = requiredError;
 				}
 				if (!values.description) {
-					errors.ssn = requiredError;
+					errors.description = requiredError;
 				}
 				if (!values.date) {
-					errors.dateOfBirth = requiredError;
+					errors.date = requiredError;
 				}
 				return errors;
 			}}

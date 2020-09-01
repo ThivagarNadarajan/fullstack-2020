@@ -35,6 +35,7 @@ const PatientView: React.FC = () => {
 			dispatch(updatePatient(patient));
 		} catch (e) {
 			console.error(e.response.data);
+			setError(e.response.data.error);
 		}
 	};
 
